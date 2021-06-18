@@ -1,0 +1,125 @@
+﻿@page "/cOrdenes"
+@inject IToastService toast
+
+<EditForm Model="Productos" OnValidSubmit="BuscarProductos">
+    <DataAnnotationsValidator />
+    <div class="card ">
+        <div class="card-header">
+            <h3>Consulta de Productos</h3>
+        </div>
+
+        <table class="table table-secondary">
+            <thead class="thead-dark">
+                <tr>
+                    <th>Id:</th>
+                    <th>Descripción:</th>
+                    <th>Inventario:</th>
+                    <th>Costo:</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody class="bg-transparent">
+                @foreach (var item in Productos)
+                {
+                    <tr>
+                        <td>@item.ProductoId</td>
+                        <td>@item.Descripcion</td>
+                        <td>@item.Inventario</td>
+                        <td>@item.Costo</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</EditForm>
+
+<EditForm Model="Suplidores" OnValidSubmit="BuscarSuplidores">
+    <DataAnnotationsValidator />
+    <div class="card ">
+        <div class="card-header">
+            <h3>Consulta de Suplidores</h3>
+        </div>
+
+        <table class="table table-secondary">
+            <thead class="thead-dark">
+                <tr>
+                    <th>Id:</th>
+                    <th>Nombres:</th>
+                </tr>
+            </thead>
+            <tbody class="bg-transparent">
+                @foreach (var item in Suplidores)
+                {
+                    <tr>
+                        <td>@item.SuplidorId</td>
+                        <td>@item.Nombres</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</EditForm>
+
+<EditForm Model="Ordenes" OnValidSubmit="BuscarOrdenes">
+    <DataAnnotationsValidator />
+    <div class="card ">
+        <div class="card-header">
+            <h3>Consulta de Ordenes</h3>
+        </div>
+
+        <table class="table table-secondary">
+            <thead class="thead-dark">
+                <tr>
+                    <th>Id:</th>
+                    <th>Fecha:</th>
+                    <th>Suplidor:</th>
+                    <th>Monto:</th>
+                </tr>
+            </thead>
+            <tbody class="bg-transparent">
+                @foreach (var item in Ordenes)
+                {
+                <tr>
+                    <td>@item.OrdenId</td>
+                    <td>@item.Fecha.ToShortDateString()</td>
+                    <td>@SuplidoresBLL.Buscar(item.SuplidorId).Nombres</td>
+                    <td>@item.Monto </td>
+                </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</EditForm>
+
+@code {
+    private List<Productos> Productos = new List<Productos>() { };
+    private List<Ordenes> Ordenes = new List<Ordenes>() { };
+    private List<Suplidores> Suplidores = new List<Suplidores>() { };
+
+    protected override void OnInitialized()
+    {
+        BuscarOrdenes();
+        BuscarSuplidores();
+        BuscarProductos();
+    }
+
+    private void BuscarProductos()
+    {
+        var encontrado = ProductosBLL.GetList(c => true);
+        if (encontrado != null)
+            this.Productos = encontrado;
+    }
+    private void BuscarSuplidores()
+    {
+        var encontrado = SuplidoresBLL.GetList(c => true);
+        if (encontrado != null)
+            this.Suplidores = encontrado;
+    }
+    private void BuscarOrdenes()
+    {
+        var encontrado = OrdenesBLL.GetList(c => true);
+        if (encontrado != null)
+            this.Ordenes = encontrado;
+    }
+
+}

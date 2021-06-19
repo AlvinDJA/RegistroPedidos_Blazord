@@ -9,7 +9,7 @@ using System.Text;
 
 namespace RegistroPedidos_Blazord.BLL
 {
-    class OrdenesBLL
+    public class OrdenesBLL
     {
         public static bool Guardar(Ordenes orden)
         {
@@ -48,7 +48,7 @@ namespace RegistroPedidos_Blazord.BLL
             return paso;
         }
 
-        private static bool Modificar(Ordenes orden)
+        public static bool Modificar(Ordenes orden)
         {
             bool paso = false;
             Contexto contexto = new Contexto();

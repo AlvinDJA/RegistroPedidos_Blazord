@@ -12,5 +12,8 @@ namespace RegistroPedidos_Blazord.Models
 
         [Required(ErrorMessage = "Inserte el nombre del suplidor")]
         public string Nombres { get; set; }
+
+        public ICollection<Ordenes> Ordenes { get; set; }
+
     }
 }

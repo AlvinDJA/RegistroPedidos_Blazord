@@ -10,11 +10,13 @@ namespace RegistroPedidos_Blazord.Models
         [Key]
         public int OrdenId { get; set; }
         public DateTime Fecha { get; set; } = DateTime.Now;
+        
         public int SuplidorId { get; set; }
+        public Suplidores Suplidor { get; set; }
+
         public float Monto { get; set; }
 
         [ForeignKey("OrdenId")]
         public List<OrdenesDetalle> Detalle { get; set; } = new List<OrdenesDetalle>();
-
     }
 }

@@ -18,5 +18,6 @@ namespace RegistroPedidos_Blazord.Models
 
         public float Inventario { get; set; }
 
+        public ICollection<OrdenesDetalle> OrdenesDetalle { get; set; }
     }
 }
